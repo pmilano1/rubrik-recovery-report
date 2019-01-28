@@ -26,14 +26,8 @@ class ParseOptions
       end
       opts.separator ""
       opts.separator "Common options:"
-      opts.on('-n', '--node [Address]', "Rubrik Cluster Address/FQDN") do |node|
-        options[:n] = node;
-      end
-      opts.on('-u', '--username [username]', "Rubrik Cluster Username") do |user|
-        options[:u] = user;
-      end
-      opts.on('-p', '--password [password]', "Rubrik Cluster Password") do |pass|
-        options[:p] = pass;
+      opts.on('-c', '--cluster [Address]', "Rubrik Cluster Name") do |cluster|
+        options[:cluster] = cluster;
       end
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts
