@@ -13,7 +13,7 @@ ruby ./rubrik_recovery_report.rb --help
 Usage: %prog [options]
 
 Report options:
-    -c, --cluster [Address]          Rubrik Cluster Friendly Name
+    -c, --cluster [Friendly Name]          Rubrik Cluster Friendly Name
     -f, --from [string]              Start Date (YYYY-mm-dd)
     -t, --to [string]                End Date (YYYY-mm-dd)
     -h, --help                       Show this message
