@@ -1,7 +1,7 @@
-# rubrik_mount_report
+# rubrik_recovery_report
 
 # Overview
-* Rubrik Script to report on Live Mount recoveries between two dates
+* Rubrik Script to report on Recovery Events between two dates
 
 # Dependencies
 * Ruby 2.4.x or greater
@@ -9,69 +9,52 @@
 
 # How to Use
 ```
-.creds - JSON formatted configuration (or resort to including credentials in command line execution)
-
-        {
-                "rubrik": {
-                        "servers":["ip","ip",...],
-                        "username": "[username]",
-                        "password": "[password]"
-                }
-        }
-
-Usage: report_live_mounts.rb [options]
-
-Specific options:
-    -l, --login                      Perform no operations but test Rubrik Connectivity
+ruby ./rubrik_recovery_report.rb --help
+Usage: %prog [options]
 
 Report options:
-    -f, --from [string]              Start Date (MM-DD-YYYY)
-    -t, --to [string]                End Date (MM-DD-YYYY)
-
-Common options:
-    -n, --node [Address]             Rubrik Cluster Address/FQDN
-    -u, --username [username]        Rubrik Cluster Username
-    -p, --password [password]        Rubrik Cluster Password
+    -c, --cluster [Address]          Rubrik Cluster Friendly Name
+    -f, --from [string]              Start Date (YYYY-mm-dd)
+    -t, --to [string]                End Date (YYYY-mm-dd)
     -h, --help                       Show this message
+    
+You will be prompted for cluster details if they are not saved.
 ```
 
-# Example:
+# Example credential definition (if credentials for --cluster do not yet exist):
+
 ```
-Command -  ruby .\rubrik_mount_report.rb -f 01-01-2018 -t 02-01-2018
+Command - ruby./rubrik_recovery_report.rb -c amer2 --from 2019-01-24 --to 2019-01-25
+
+Output - 
+
+Credentials not found, prompting for details
+Please enter Rubrik Node FQDNs/IPs for Cluster Name amer2 (comma delimited) : > amer2-rbk01.rubrikdemo.com
+Please enter Username : > peter.milanese@rubrikdemo.com
+Please enter Password : > 
+Getting report data from Rubrik
+Page 1
+"Report was saved as amer2-2019-01-24~2019-01-25.csv"
+```
+
+# Example report generation:
+
+```
+Command -  ruby ./rubrik_recovery_report.rb -c amer2 --from 2019-01-026 --to 2019-01-27
 
 Output - 
 
 Getting report data from Rubrik
 Page 1
-Page 2
-Page 3
-Page 4
-Page 5
-Page 6
-Page 7
-Page 8
-Page 9
-Page 10
-Page 11
-Page 12
-Page 13
-Page 14
-Page 15
-Page 16
-Page 17
-Report was saved as 01-01-2018-to-02-01-2018.csv
+"Report was saved as amer2-2019-01-026~2019-01-27.csv"
+
 ```
 
 # Result File Excerpt
 
 ```
 Mount Time, Object Name, Message
-Wed Jan 31 23:02:24 UTC 2018,SE-KCARLSON-WIN,Mounted vSphere VM 'SE-KCARLSON-WIN 01-27 23:10 0'
-Wed Jan 31 22:42:44 UTC 2018,SE-ALEWIS-LINUX,Mounted vSphere VM 'SE-ALEWIS-LINUX 01-31 04:14 0'
-Wed Jan 31 21:49:59 UTC 2018,SE-JMCNEIL-WIN,Mounted vSphere VM 'SE-JMCNEIL-WIN 01-31 18:59 0'
-Wed Jan 31 21:43:53 UTC 2018,SE-RMATTHEW-WIN,Mounted vSphere VM 'SE-RMATTHEW-WIN 01-30 19:37 0'
-Wed Jan 31 21:16:38 UTC 2018,SE-CCARLTON-LINUX,Mounted vSphere VM 'SE-CCARLTON-LINUX 01-30 08:28 0'
-Wed Jan 31 20:45:37 UTC 2018,SE-RFELIX-LINUX,Mounted vSphere VM 'SE-RFELIX-LINUX 01-29 00:17 0'
-Wed Jan 31 20:28:09 UTC 2018,SE-DLANDO-LINUX,Mounted vSphere VM 'SE-DLANDO-LINUX 01-02 23:51 1'
-Wed Jan 31 20:25:30 UTC 2018,SE-LSTEVENS-WIN,Mounted vSphere VM 'SE-LSTEVENS-WIN 01-24 21:42 0'
+"Sat Jan 26 17:25:55 UTC 2019","am2-stevneka-w1","Unmounted vSphere VM 'am2-stevneka-w1 01-26 01:54 0'"
+"Sat Jan 26 17:25:06 UTC 2019","am2-stevneka-w1","Mounted vSphere VM 'am2-stevneka-w1 01-26 01:54 0'"
+"Sat Jan 26 03:44:18 UTC 2019","am2-adamturn-l1","Successfully restored 1 file(s)(total 5.66 MB) from snapshot of 'vSphere VM' 'am2-adamturn-l1' taken at 'Wed Nov 14 21:18:00 UTC 2018' in 3 seconds. Transfer rate was 1.73 MBps"
 ```

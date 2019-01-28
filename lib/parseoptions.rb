@@ -12,22 +12,15 @@ class ParseOptions
     opt_parser = OptionParser.new do |opts|
       opts.banner = "Usage: %prog [options]"
       opts.separator ""
-      opts.separator "Specific options:"
-      opts.on('-l', '--login', "Perform no operations but test Rubrik Connectivity") do |login|
-        options[:login] = login;
-      end
-      opts.separator ""
       opts.separator "Report options:"
-      opts.on('-f', '--from [string]', "Start Date (MM-DD-YYYY)") do |g|
-        options[:from_date] = g;
-      end
-      opts.on('-t', '--to [string]', "End Date (MM-DD-YYYY)") do |g|
-        options[:to_date] = g;
-      end
-      opts.separator ""
-      opts.separator "Common options:"
       opts.on('-c', '--cluster [Address]', "Rubrik Cluster Name") do |cluster|
         options[:cluster] = cluster;
+      end
+      opts.on('-f', '--from [string]', "Start Date (YYYY-mm-dd)") do |g|
+        options[:from_date] = g;
+      end
+      opts.on('-t', '--to [string]', "End Date (YYYY-mm-dd)") do |g|
+        options[:to_date] = g;
       end
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts

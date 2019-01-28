@@ -31,11 +31,13 @@ def addCreds(name, cred_hash)
       cred_hash = Hash.new
     end
     cred_hash["#{name}"] = Hash.new
-    puts "Please enter Rubrik Node FQDNs/IPs for Cluster Name #{name} (comma delimited) :"
+    print "Please enter Rubrik Node FQDNs/IPs for Cluster Name #{name} (comma delimited) : > "
     servers = gets
     cred_hash["#{name}"]["servers"] = servers.strip.split(',')
-    cred_hash["#{name}"]["username"] = puts "Please enter Username : #{encrypt(gets.strip, name)}"
-    cred_hash["#{name}"]["password"] = puts "Please enter Password : #{encrypt(STDIN.noecho(&:gets).strip, name)}"
+    print "Please enter Username : > "
+    cred_hash["#{name}"]["username"] = encrypt(gets.strip, name)
+    print "Please enter Password : > "
+    cred_hash["#{name}"]["password"] = encrypt(STDIN.noecho(&:gets).strip, name)
     File.write(".creds", JSON.dump(cred_hash))
     return cred_hash
   rescue
