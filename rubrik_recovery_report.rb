@@ -33,7 +33,8 @@ until done
     puts "Page #{page}"
   else
     page += 1
-    call = "/api/internal/event?limit=100&object_type=VmwareVm&event_type=Recovery&before_date=#{to_date}&after_date=#{from_date}"
+    call = "/api/internal/event?limit=100&event_type=Recovery&before_date=#{to_date}&after_date=#{from_date}"
+    #call = "/api/internal/event?limit=100&object_type=VmwareVm&event_type=Recovery&before_date=#{to_date}&after_date=#{from_date}"
     puts "Page #{page}"
   end
   o = restCall(Creds[Options.cluster], call, '', 'get')
