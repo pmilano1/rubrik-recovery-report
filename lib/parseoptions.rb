@@ -13,7 +13,7 @@ class ParseOptions
       opts.banner = "Usage: %prog [options]"
       opts.separator ""
       opts.separator "Report options:"
-      opts.on('-c', '--cluster [Address]', "Rubrik Cluster Name") do |cluster|
+      opts.on('-c', '--cluster [Friendly Name]', "Rubrik Cluster Friendly Name") do |cluster|
         options[:cluster] = cluster;
       end
       opts.on('-f', '--from [string]', "Start Date (YYYY-mm-dd)") do |g|
